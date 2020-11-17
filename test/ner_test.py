@@ -7,7 +7,7 @@ from nlpcda import Ner
 
 ner = Ner(ner_dir_name='../write',
           ignore_tag_list=['O', 'T'],
-          data_augument_tag_list=['organization'],
-          augument_size=3, seed=0, delimiter=' ')
-data_sentence_arrs, data_label_arrs = ner.augment('../write/train_0.txt')
+          data_augument_tag_list=['mobile'],
+          augument_size=10, seed=0, delimiter=' ')
+data_sentence_arrs, data_label_arrs = ner.augment('../write/mobile.txt')
 print(data_sentence_arrs, data_label_arrs)
