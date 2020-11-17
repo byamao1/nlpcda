@@ -17,12 +17,14 @@ class Ner:
     def __init__(self, ner_dir_name: str, ignore_tag_list: list,
                  data_augument_tag_list: list,
                  augument_size: int = 3,
-                 seed: int = 0):
+                 seed: int = 0, delimiter: str = "\t"):
         random.seed(seed)
         self.ignore_tag_list = ignore_tag_list
         self.size = augument_size
         self.data_augument_tag_list = data_augument_tag_list
+        self.delimiter = delimiter
         self.tag_map = self.__get_all_tag_map(ner_dir_name)
+
 
     def __get_random_ner(self, tag: str):
         assert tag in self.tag_map
@@ -59,7 +61,9 @@ class Ner:
             pre_tag = ''
             ner_sentence = ''
             for line in r_f:
-                t_char, t_label = line.replace('\n', '').split('\t')
+                if line.replace('\n', '') == '':
+                    continue
+                t_char, t_label = line.replace('\n', '').split(self.delimiter)
                 tp_tag = 'O'
                 if 'O' != t_label:
                     tp_tag = t_label.split('-')[1]
